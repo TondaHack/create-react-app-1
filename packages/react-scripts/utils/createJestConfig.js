@@ -26,7 +26,7 @@ module.exports = (resolve, rootDir, isEjecting) => {
     setupFiles: [resolve('config/polyfills.js')],
     setupTestFrameworkScriptFile: setupTestsFile,
     testPathIgnorePatterns: [
-      '<rootDir>[/\\\\](build|docs|node_modules|scripts)[/\\\\]'
+      '<rootDir>[/\\\\](build|docs|node_modules|scripts|test/e2e)[/\\\\]'
     ],
     testEnvironment: 'node',
     testURL: 'http://localhost',
@@ -38,7 +38,7 @@ module.exports = (resolve, rootDir, isEjecting) => {
       '^(?!.*\\.(js|jsx|css|json)$)': resolve('config/jest/fileTransform.js'),
     },
     transformIgnorePatterns: [
-      '[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'
+      '[/\\\\]node_modules[/\\\\](?!react-shared-components).+.(js|jsx)$'
     ],
     moduleNameMapper: {
       '^react-native$': 'react-native-web'

@@ -142,7 +142,10 @@ module.exports = {
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
-        include: paths.appSrc,
+        include: [
+          paths.appSrc,
+          paths.appNodeModules + '/react-shared-components'
+        ],
         loader: 'babel',
         // @remove-on-eject-begin
         query: {
@@ -167,7 +170,7 @@ module.exports = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
           'style',
-          'css?importLoaders=1!postcss',
+          'css?modules&importLoaders=1!postcss',
           extractTextPluginOptions
         )
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
@@ -199,17 +202,10 @@ module.exports = {
     useEslintrc: false
   },
   // @remove-on-eject-end
-  // We use PostCSS for autoprefixing only.
   postcss: function() {
     return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9', // React doesn't support IE8 anyway
-        ]
-      }),
+        require("postcss-import")(),
+        require("postcss-cssnext")()
     ];
   },
   plugins: [
